@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>享元模式</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        .boxs{
+            width: 30px;
+            height: 30px;
+            border: 1px solid black;
+            border-radius: 100%;
+            line-height: 30px;
+            text-align: center;
+            float: left;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .boxs2{
+            width: 30px;
+            height: 30px;
+            border: 1px solid red;
+            border-radius: 100%;
+            line-height: 30px;
+            text-align: center;
+            float: left;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>享元模式</h1>
+    <script>
+        // 假如： 
+        // 项目需求是 ： js动态添加 100个div！
+        // 首先创建一个工厂：
+        function Boxs (i){
+            var divs = document.createElement('div');
+            divs.className = "boxs";
+            divs.innerHTML = i;
+            document.body.appendChild(divs);
+        }
+        // 循环创建出 100个div  也就是创建了 100个对象
+        // 如果项目需求改为 10000个div呢？ 性能方面我们就要考虑一下了。
+        for(let i = 0; i < 100; i++){
+            new Boxs(i);
+        }
+        // 创建一个 工厂
+        function Boxs2(){}
+        // 给工厂的原型链添加方法
+        Boxs2.prototype.show = function(){
+            var divs = document.createElement('div');
+            divs.className = "boxs2";
+            divs.innerHTML = this.i;
+            document.body.appendChild(divs);
+        }
+        // 实例化出 这个对象
+        var a = new Boxs2();
+        // 循环执行 这个 a对象里面的 shou方法 执行 1000遍
+        for(var i = 0; i< 1000; i++){
+            a.i = i;
+            a.show();
+        }
+        // 分析：  第一个 是 循环创建 100个 对象
+        // 第二个是  循环 执行 1个对象里面的shou方法 执行 1000遍；
+    </script>
+</body>
+</html>

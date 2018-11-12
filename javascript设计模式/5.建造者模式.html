@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>建造者模式</title>
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+    <h1>建造者模式</h1>
+    <script>
+        // 应用场景： 用户输入的必填项or非必填项
+        // 比如说 我们做一个工作调查报告： 
+        // 分析： 必填项：用户名、职位。
+        // 非必填项： 月薪、公司名。
+        // 1. 定义 非必填项默认  如果不填默认 保密；
+        let WorkReport = function(param){
+            this.salary = param && param.salary || "保密";
+            this.companyName = param && param.companyName || "保密";
+        }
+        // 2. 给非必填项添加俩个方法
+        WorkReport.prototype = {
+            getSalary : function () {
+                return this.salary;
+            },
+            getCompanyName : function (){
+                return this.companyName;
+            }
+        }
+        // 定义 必填项的 name 处理逻辑类
+        let Name = function(name){
+            let names = name.substring(0,1);
+            names = names + "**";
+            this.name = names;
+        }
+        // 定义 必填项的 work 处理逻辑类
+        let Work = function(work){
+            let _this = this;
+            ((work,_this)=>{
+                switch(work){
+                    case "Javascript":
+                        _this.work = "Javascript";
+                        _this.describe = "前端程序员!";
+                        break;
+                    case "Java":
+                        _this.work = "Java";
+                        _this.describe = "后端程序员!"
+                        break;
+                    case "UI":
+                        _this.work = "UI";
+                        _this.describe = "设计师！"
+                        break;
+                    default:
+                        _this.work = work;
+                        _this.describe = '对不起,我们没有对该职位描述';
+                }
+            })(work,_this)
+        }
+        // 给work 添加俩个方法  改变上面函数 没有的工作
+        Work.prototype = {
+            changeWork : function(work){
+                this.work = work;
+            },
+            changeDescribe : function(describe){
+                this.describe = describe;
+            }
+        }
+        // 将上面所有类 封装到一个 类中。
+        let Person = function(name,work){
+            let _person = new WorkReport();
+            _person.name = new Name(name);
+            _person.work = new Work(work);
+            return _person;
+        }
+
+
+        var a = new Person('杨小宝','Javascript');
+        a.salary = "10000";
+        a.companyName = "北明软件";
+        console.log(a.salary);
+        console.log(a.companyName);
+        console.log(a.work.describe);
+        console.log(a.work.work);
+        a.work.changeWork('Web');
+        a.work.changeDescribe("我是一名前端程序员");
+        console.log(a.work.work);        
+        console.log(a.work.describe);
+
+        // 解释：
+        // 非必填直接在原始类(WorkReport) 定义默认 
+        // 必填项 如果有对应的业务逻辑 单独写对应的类(work,name)
+    </script>
+</body>
+</html>

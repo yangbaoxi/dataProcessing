@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>类（函数）的继承</title>
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+    <h1>类（函数）的继承</h1>
+</body>
+<script>
+    // 组合式继承（可用度 ：5个星）
+    // 1.创建一个类
+    function Person(name){
+        this.name = name;
+        this.foods = ['汉堡','可乐','鸡腿'];
+    }
+    // 2.给Person的原型链 添加一个方法
+    Person.prototype.getName = function (){
+        console.log(`我的名字是：${this.name}`);
+    }
+
+    // 3.创建一个另一个类（函数） （继承Person类）
+    function Child(name,age){
+        Person.call(this,name);  // 将 Child的this 指向Person类 
+        this.age = age;  // Child 类里面的属性
+    }
+    // 4.原型链的继承
+    Child.prototype = new Person(); // 将新建的 Person 类的对象 赋值 给 Child 的  prototype(对象);
+     // 5.将 child的原型链添加 constructor属性 或者说 修改this的指向
+    Child.prototype.constructor = Child; 
+
+    // 6.在child的原型链添加方法
+    Child.prototype.getAge = function(){
+        console.log(`我的年龄是：${this.age}`);
+    }
+
+
+    // 7.创建一个 child的实例对象 
+    var a = new Child('yangbao',18);  
+    console.log(a.name);  // yangbao
+    console.log(a.age);  // 18 
+    a.getName();  
+    a.getAge();
+
+
+    // 8.检查 a 实例对象的 是否 具有 Person个Child类的方法以及属性.
+    console.log(a instanceof Person); // true
+	console.log(a instanceof Child); // true
+    
+</script>
+</html>

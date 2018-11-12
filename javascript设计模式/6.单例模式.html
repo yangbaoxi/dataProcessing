@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单例模式</title>
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+    <h1>单例模式</h1>
+    <script>
+        // 单例模式 很简单 如： var a = {} or var a = new Object();
+        // 使用单例模式无非就是为了一个命名空间，防止污染别人的命名 可以看 2.面向对象的调用方式.html
+        // 复习一下之前学的：
+        // 1.创建一个命名空间（创建一个单例模式对象）
+        let yxb = function(name){
+            // 私有属性；
+            let private = "我是私有属性";
+            // 私有方法；
+            function changeName(){
+                debugger;
+                private = private + "----我用私有方法改变了私有属性";
+                return private;
+            }
+            // 共有属性
+            this.name = name;
+            // 共有方法
+            this.getName = function(){
+                this.name = this.name + '通过getName函数';
+                return this.name;
+            }
+            this.getFun = function(){
+                console.log(changeName());
+            }
+        };
+        var a = new yxb('杨小宝');
+        console.log(a);
+        console.log(a.a); // 获取私有属性 undefined
+        //a.name(); //Uncaught TypeError: a.name is not a function
+        // 我们看一下正确获取方式
+        console.log(a.getName()); // 获取 私有属性
+        a.getFun(); // 获取 私有方法；
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>外观模式</title>
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+    <h1>外观模式</h1>
+    <div id="box"></div>
+    <div id="box2"></div>
+    <script>
+        // 在项目中，团队开发过程中，如果你想给一个元素添加一个点击事件，另一个人也要添加点事件怎么办？
+        // 封装一个类
+        function addEvent (dom,type,fn){
+            if(dom.addEventListener){
+				dom.addEventListener(type,fn,false);
+			}else if(dom.attachEvent){
+				dom.attachEvent('on' + type, fn);
+			}else{
+				dom['on'+type] = fn;
+			}
+        }
+        var box = document.getElementById('box');
+
+        // 错误演示：
+        box.onclick = function(){   // 甲给元素添加事件
+            alert(1);
+        }
+        box.onclick = function(){   // 乙给元素添加事件
+            alert(2);
+        }
+        // 上面案例 乙的点击事件覆盖甲的事件逻辑
+        // 通过封装的小函数来实现：
+        var box2 = document.getElementById('box2');
+
+        addEvent(box2,'click',function(){
+            alert(1);
+        })
+        addEvent(box2,'click',function(){
+            alert(2);
+        })
+    </script>
+</body>
+</html>

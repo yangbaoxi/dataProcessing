@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>桥接模式</title>
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+    <h1>桥接模式</h1>
+    <script>
+        // 我理解的桥接模式就是把 很多类，集中在一起使用，类与类之间有一层虚线关系。
+        // 比如：创建三个类
+        
+        function Music(song){  // 音乐类
+            this.song = song;
+        }
+        Music.prototype.play = function(){
+            console.log(`正在播放 ${this.song} 这首歌`);
+        }
+        
+        function Eat(food){  // 吃类
+            this.food = food;
+        }
+        Eat.prototype.doing = function(){
+            console.log(`正在吃 ${this.food} 零食`);
+        }  
+        
+        function Motion(type){  // 运动类
+            this.type = type;
+        }
+        Motion.prototype.run = function(){
+            console.log(`正在做 ${this.type} 运动`);
+        }
+        
+        // ok 现在 创建一个人
+        var Person = function(song,food){
+            this.music = new Music(song);
+            this.eat = new Eat(food);
+        }
+        Person.prototype = {
+            init : function(){
+                this.music.play();
+                this.eat.doing();
+            }
+        } 
+        // 执行这个人所有的特征
+        var a = new Person('灰色头像','汉堡');
+        a.init();
+        console.log(a); 
+        // ok 现在 创建第二个人
+        var Person2 = function(song,type){
+            this.music = new Music(song);
+            this.motion = new Motion(type);
+        }
+        Person2.prototype = {
+            init : function(){
+                this.music.play();
+                this.motion.run();
+            }
+        }
+        // 执行这个人所有特征
+        var b = new Person('第三人称','跑步');
+        b.init();
+        console.log(b);
+    </script>
+</body>
+</html>

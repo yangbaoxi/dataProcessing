@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>工厂模式</title>
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+    <h1>工厂模式</h1>
+</body>
+<script>
+    // 一、 简单工厂模式
+    // 1.创建一个正则工厂;
+    /**
+    * @param {String} [type] [函数名字]
+    * @param {String} [value] [将要监测的value]
+    */
+    function RegFactoty (type,value){
+        // 判断： 2.1  如果 new实力对象 走 true 反之 new RegFactoty(type,value); 回到 true的逻辑代码 （请看 2.2）
+        console.log(this instanceof RegFactoty); // console 可以在控制台看 不同的结果 new 与 不 new 时候的状态。
+        if(this instanceof RegFactoty){
+            return new this[type](value);  // 3.根据type类型 在原型链找对应的函数  执行对应的逻辑
+        }else{
+            return new RegFactoty(type,value);  // 2.2 如果 没有new实力对象 程序会在执行一遍 true的逻辑代码 
+        }
+    }
+    // 4.给工厂定义方法；
+    RegFactoty.prototype = {
+        Number_reg : function(value){
+            this.reg = /^[0-9]*$/;
+            if(value == ""){
+                return;
+            }else{
+                this.bool = this.reg.test(value);
+                return this.bool;
+            }
+        },
+        Cell_phone_reg : function(){
+            this.reg = /^(1[0-9])\d{9}$/;
+            if (value == '') {
+                return;
+            }else{
+                this.bool = this.reg.test(value);
+                return this.bool;
+            }
+        }
+    }
+    // 5. 监测工厂是否成功？
+    let a = new RegFactoty('Number_reg',123);
+    let b = RegFactoty('Number_reg','你好');
+    console.log(a);
+    console.log(b);
+
+    // 二、抽象工厂模式
+    /**
+     * @param {Function} [subType] [要继承的类]
+     * @param {String} [superType] [工厂类中的抽象类type]
+     */
+    function RegFactoty2 (subType,superType){
+        // 判断： 1.监测 传入的第二个参数是不是 在工厂内部的一个函数 如果不是内部函数 抛出错误异常；
+        if(typeof RegFactoty2[superType] === 'function'){
+            function F() {};  
+            F.prototype = new RegFactoty2[superType](); // 2.空函数的原型链继承 superType函数实力对象（继承属性跟方法）
+            subType.constructor = subType;  // 3.将子类constructor指向子类
+            subType.prototype = new F(); // 4.子类继承父类的 superType函数实力对；
+        }else{
+            throw new Error('未创建该抽象类');
+        }
+    }
+    RegFactoty2.Number_Reg = function(){
+        // 5.这个公共函数就是写 逻辑代码的地方。
+		this.reg = /^[0-9]*$/;
+    }
+    RegFactoty2.Number_Reg.prototype = {
+        monitorReg : function(){
+            return new Error('抽象方法不能调用'); // 6.如果 我没有 通过子类 去继承父类 调用这个方法的话就报错。
+        }
+    }
+    // 7.子类
+    let reg = function(value){
+        // 7.1 子类内部的逻辑代码 自己可以随便 编写 
+        if(value == ""){
+            return new Error('value值不能为空');;
+        }else{
+            this.bool = this.reg.test(value);
+            return this.bool;
+        }
+    }
+    RegFactoty2(reg,'Number_Reg'); // 8.子类 继承父类 Number_Reg 对象
+    reg.prototype.monitorReg = function(){ // 9.子类方法 覆盖 父类 方法 
+        return this.bool;
+    }
+    let c = new reg('123');//  10.直接执行就可以 直接看到答案
+    console.log(c);
+</script>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>面向对象调用方法</title>
+	<link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+	<h1>面向对象调用方法</h1>
+</body>
+<script type="text/javascript">
+	//  1.html 的总结
+	let MyFun = function (id) {
+		// 私有属性；
+		let private = "我是私有属性";
+		// 私有方法
+		function  privateFun() {
+			console.log('我是私有方法');
+		}
+		function setName() {
+			console.log('我是私有方法，但是我被内部的公有方法调用了，所以叫做特权方法');
+		}
+		// 公有属性
+		this.id = id;
+		// 公有方法
+		this.common = function () {
+			console.log('公有的方法也就是说函数');
+		}
+		// 特权方法
+		this.getName = function () {
+			setName();
+		}
+		this.getPrivate = function () {
+			console.log(private);
+		}
+	}
+	let a = new MyFun(0);  // 构造器 传给私有属性参数 id = 0；
+	console.log(a.id); // 调用 共有属性
+	a.common();  // 调用公有方法 
+	a.getName();  // 调用特权方法
+	a.getPrivate(); // 调用特权方法
+// =========================================================
+//  闭包  
+	let MyFun2 = (function () {
+		// 静态私有属性
+		let study = "学";
+		// 静态私有方法
+		function privateFun () {
+			console.log('习');
+		}
+		function _MyFun2(name) {
+			// 私有属性
+			let surname = "翟";
+			// 私有方法
+			function setName() {
+				console.log("好好");
+			}
+			// 公有方法
+			this.name = name;
+			this.lastname = function () {
+				console.log('倩')
+			}
+			// 特权方法
+			this.getName = function () {
+				console.log(surname);
+			}
+			this.studyFun = function () {
+				setName();
+				console.log(study);
+				privateFun();
+			}
+		}
+		_MyFun2.prototype = {
+			A:'加',
+			B:'油'
+		}
+		return _MyFun2;
+	})()
+	var b = new MyFun2('敏'); // 构造器 传给私有属性参数 name = 敏
+	b.getName();  // 调用 特权方法
+	console.log(b.name); // 调用私有属性 
+	b.lastname(); // 调用 公有方法
+	b.studyFun(); // 调用 特权方法 以及 调用 静态私有属性 和 静态私有方法
+	console.log(b.A); // 调用原型链属性
+	console.log(b.B); // 调用原型链属性
+</script>
+</html>

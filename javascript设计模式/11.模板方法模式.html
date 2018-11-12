@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模版方法模式</title>
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+    <h1>模版方法模式</h1>
+    <button id="btn">点击出弹框</button>
+    <button id="btn2">点击出弹框</button>
+    <script>
+        // 接下来写一个 类似的layer弹框插件；
+        function Layer (data){
+            if(!data){
+                return;
+            }          
+            // 创建HTML页面代码
+            // 创建最外层盒子 样式写在 common.css中
+            this.LayerBox = document.createElement('div');
+            this.LayerBox.className = 'layerBox';
+            // 创建一个title 盒子
+            this.LayerTitle = document.createElement('div'); 
+            this.LayerTitle.className = "layerTitle";
+            // 创建内容盒子
+            this.LayerContent = document.createElement('div');
+            this.LayerContent.className = "layerContent"; 
+            // 创建一个 确定按钮盒子
+            this.LayerConfirmBox = document.createElement('div'); 
+            this.LayerConfirmBox.className = "layerConfirmBox";
+            this.LayerConfirmBtn = document.createElement('a');
+            // 创建关闭弹框按钮HTML代码
+            this.LayerCloseBox = document.createElement('span');
+            this.LayerCloseBox.className = "layerCloseBox";
+            this.LayerCloseIcon = document.createElement('i');
+            // 创建朦胧层HTML代码
+            this.LayerHazyBox = document.createElement('div');
+            this.LayerHazyBox.className = "layerHazyBox"
+            // 定义盒子内容
+            this.title = data.title;
+            this.content = data.content; 
+            this.btnText = data.btnText;
+            this.LayerTitle.innerHTML = this.content || "信息";
+            this.LayerConfirmBtn.innerHTML = this.btnText || "确定";
+            this.LayerContent.innerHTML = this.content || "默认信息";
+            // 添加一个确定后的回调函数
+            this.success = data.success || function(){};
+            // 添加一个关闭弹框的回调函数
+            this.close = data.close || function(){};
+        }
+        Layer.prototype = {
+            init : function(){
+                this.LayerBox.appendChild(this.LayerTitle);
+                this.LayerBox.appendChild(this.LayerContent);
+                this.LayerBox.appendChild(this.LayerConfirmBox);
+                this.LayerBox.appendChild(this.LayerCloseBox);
+                this.LayerCloseBox.appendChild(this.LayerCloseIcon);
+                this.LayerConfirmBox.appendChild(this.LayerConfirmBtn);
+                document.body.appendChild(this.LayerBox);
+                document.body.appendChild(this.LayerHazyBox);
+                // 让弹框出现
+                this.show();
+                // 确定跟关闭盒子绑定事件
+                this.bindEvent();
+            },
+            bindEvent : function(){
+                // 给 确定 跟 x 绑定事件
+                let _this = this;
+                this.LayerConfirmBtn.onclick = function(){
+                    _this.success();
+                    _this.hide();
+                }
+                this.LayerCloseIcon.onclick = function(){
+                    _this.close();
+                    _this.hide();
+                }
+            },
+            show : function(){
+                this.LayerBox.style.display = "block";
+                this.LayerHazyBox.style.display = "block";
+            },
+            hide : function(){
+                this.LayerBox.style.display = "none";
+                this.LayerHazyBox.style.display = "none";
+                // 让HTML代码删除
+                document.body.removeChild(this.LayerBox);
+                document.body.removeChild(this.LayerHazyBox);
+            }
+        }
+
+        var btn = document.getElementById('btn');
+        btn.onclick = function(){
+            new Layer({
+                title:"",
+                content:"你好！",
+                success:function(){
+                    alert('确定后执行函数');
+                },
+                close:function(){
+                    alert('点击关闭执行函数');
+                }
+            }).init();
+        }
+
+        // 使用子类继承 父类 抽象 改变父类结构
+        // 给确定按钮 添加一个取消按钮
+        function LayerInquiry (data){
+            // 改变this指向
+            Layer.call(this,data);
+            // 这里this只的是父级 Layer
+            // 创建一个取消按钮
+            this.LayerCloseBtn = document.createElement('a');
+            this.btnCloseText = data.btnCloseText;
+            this.LayerCloseBtn.innerHTML = this.btnCloseText || "取消";
+        }
+        // 原型链继承父级所有方法
+        LayerInquiry.prototype = new Layer();
+        LayerInquiry.prototype.init = function(){
+            // 改变初始化  取消按钮添加到盒子
+            this.LayerConfirmBox.appendChild(this.LayerCloseBtn);
+            // 继承父级原始的 init方法；
+            Layer.prototype.init.call(this);
+        }
+        LayerInquiry.prototype.bindEvent = function(){
+            let _this = this;
+            // 为创建的取消按钮 添加绑定事件
+            this.LayerCloseBtn.onclick = function(){
+                _this.hide();
+            }
+            // 继承父级原始的  bindEvent方法；
+            Layer.prototype.bindEvent.call(this);
+        }
+        var btn2 = document.getElementById('btn2');
+        btn2.onclick = function(){
+            new LayerInquiry({
+                title:"添加需求的Title",
+                content:"添加取消了",
+                success:function(){
+                    alert('确定后执行函数');
+                },
+                close:function(){
+                    alert('点击关闭执行函数');
+                }
+            }).init();
+        }
+    </script>
+</body>
+</html>

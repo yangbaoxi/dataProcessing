@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>观察者模式</title>
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+    <h1>观察者模式</h1>
+    <div>
+        <div>
+            <p id="navtext">您还未登录</p>
+        </div>
+        <div>
+            <button id="logBtn">登录</button>
+            <button id="outBtn">退出登录</button>
+        </div>
+    </div>
+    <script>
+        // 观察者模式，就是发布订阅模式，比如举一个猫跟老鼠的故事：
+        // 背景介绍：Jerry（老鼠） 在偷吃奶酪 而 Tom（猫） 一直小心翼翼的准备抓住 Jerry  
+        // 执行事件：Jerry感觉到了危险的到来准备就开始逃跑 （发布信息） ， Tom 收到了 Jerry逃跑的信息 （订阅信息） ，Tom就开始追Jerry。
+        // 观察者对象
+        function Observer (){
+            // 创建一个储存信息的对象
+            let msgs = {};
+            // 创建一个订阅信息函数
+            this.subscribeInformation = function(type,fn){
+                if(typeof msgs[type] === "undefined"){
+                    msgs[type] = [fn];
+                }else{
+                    msgs[type].push(fn);
+                }
+            }
+            // 创建一个发布信息的函数
+            this.releaseInformation = function(type,data){
+                if(!msgs[type]) return;
+                let events = {
+                    type : type,
+                    data : data || {}
+                }
+                for(let i = 0; i < msgs[type].length; i++){
+                    msgs[type][i].call(this,events);
+                }
+            }
+            // 删除订阅信息的函数
+            this.removeInformation = function(type,fn){
+                if(msgs[type] instanceof Array){
+                    for(let i = 0; i < msgs[type].length; i++){
+                        msgs[type][i] === fn && msgs[type].splice(i,1);
+                    }
+                }
+            }
+        }
+        // 案例：
+        // 案例背景：
+        // 导航上有一条信息  '您还未登录'  
+        // 俩个按钮 一个是 登录 按钮 一个是 退出登录按钮。当我们登录的时候，导航信息改为 '登录成功'，退出登录后 改变原来信息
+        
+        // 初始化变量
+        let logBtn =  document.getElementById('logBtn'); 
+        let outBtn =  document.getElementById('outBtn'); 
+        let navtext =  document.getElementById('navtext'); 
+        // 实例化 观察者对象
+        var loginInfo = new Observer();
+        // 登录按钮 开始发布信息：
+        logBtn.onclick = function(){
+            loginInfo.releaseInformation('login',{
+                msg:"登录成功"
+            })
+        }
+        // 退出登录 开始发布信息
+        outBtn.onclick = function(){
+            loginInfo.releaseInformation('login',{
+                msg:"您还未登录"
+            })
+        }
+        // 导航信息要订阅 登录按钮的信息
+        loginInfo.subscribeInformation('login',function(e){
+            console.log(e.type,e.data);
+            navtext.innerHTML = e.data.msg;
+        })
+    </script>
+</body>
+</html>

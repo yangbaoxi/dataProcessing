@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>状态模式</title>
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+    <h1>状态模式</h1>
+    <script>
+        // 状态模式
+        // 背景 ： 假如说 项目需求 是根据不同的状态执行 不同的方法
+        // 简单的状态模式：
+        // 案例背景： 请求ajax后返回的state 有200 有 404 有 500  有 0 有 1 .....
+        let AjaxState = function(){
+            // 定义所有状态函数
+            let states = {
+                state0 : function(){
+                    console.log('处理第一种情况');
+                },
+                state1 : function(){
+                    console.log('处理第二种情况');
+                },
+                state2 : function(){
+                    console.log('处理第三种情况');
+                },
+                state3 : function(){
+                    console.log('处理第四种情况');
+                }
+            }
+            // 内部状态执行函数
+            function show (result){
+                states['state' + result] && states['state' + result]();
+            }
+            // 暴露接口
+            return {
+                show : show
+            }
+        }
+        // 调用 简单状态模式
+        let a = new AjaxState();
+        a.show(1);
+
+        // 状态模式 最高级优化
+        // 背景： 处理多种 参数
+        // 状态模式函数封装
+        // 案例背景： 制作游戏  人： 移动、跳跃、射击、蹲下
+        let MarryState = function(){
+            // 内部状态私有变量
+            let _currentState = {};
+            // 所有动作的方法映射
+            let states = {
+                jump : function (){  // 跳跃
+                    console.log('执行跳跃');
+                },
+                move : function (){  // 移动
+                    console.log('执行移动');
+                },
+                shoot : function (){ // 射击
+                    console.log('执行射击');
+                },
+                squat : function(){ // 蹲下
+                    console.log('执行蹲下');
+                }
+            }
+            // 内部状态执行函数
+            let Action = {
+                changeState : function (){
+                    let arg = arguments;
+                    // 重置内部状态
+                    _currentState = {};
+                    if(arg.length){
+                        for(let i = 0; i < arg.length; i++){
+                            _currentState[arg[i]] = true;
+                        }
+                    }
+                    // 可以 函数接函数 实现 ‘.’ (点)语法链接函数
+                    return this;
+                },
+                goes : function (){
+					console.log('触发函数');
+					for (let i in _currentState){
+						states[i] && states[i]();
+					}
+					return this;
+				}
+            }
+            // 暴露接口
+            return {
+                change : Action.changeState,
+                goes : Action.goes
+            }
+        }
+        // 使用类
+        let b = new MarryState();
+        b.change('jump','move').goes().change('squat').goes()
+    </script>
+</body>
+</html>

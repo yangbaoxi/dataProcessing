@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>策略模式</title>
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+    <h1>策略模式</h1>
+    <!-- 验证数字 -->
+    <div>
+        number验证
+        <input type="text" id="number">
+        <span id="numberText"></span>
+    </div>
+    <!-- 验证邮箱 -->
+    <div>
+        email验证
+        <input type="text" id="email">
+        <span id="emailText"></span>
+    </div>
+    <script>
+        // 策略模式  跟状态模式相似 但是还不一样
+        // 策略模式 没有状态而言，只是直接调用内部函数
+        // 比如 表单验证 
+        let InputVerification = function(){
+            // 将验证正则写在这个对象内部
+            let strategy = {
+                number : function (value) {
+					return /^[0-9]+(\.[0-9]+)?$/.test(value) ? "" : '请输入数字';
+				},
+				phone : function (value) {
+					return /^\d{3}\-\d{8}$|^\d{4}\-\d{7}$/.test(value) ? "" : "请输入正确的电话号码格式"
+				}
+            }
+            // 对外暴露接口
+            // check 验证
+            // addStrategy 添加其他 验证方式
+            return {
+                check : function(type,value){
+                    value = value.replace(/^\s+|\s+$/g,"");
+					return strategy[type] ? strategy[type](value) : "没有该类型的检测方法";
+                },
+                addStrategy : function (type,fn) {
+					strategy[type] = fn;
+				}
+            }
+        }()
+        // 案例背景 做一个简单的 input的验证 以及 添加一个 验证邮箱的正则
+        // 初始化 变量
+        let number = document.getElementById('number');
+        let numberText = document.getElementById('numberText');
+        let email = document.getElementById('email');
+        let emailText = document.getElementById('emailText');
+
+        number.onblur = function(){
+            numberText.innerHTML = InputVerification.check('number',this.value);
+        }
+        email.onblur = function(){
+            InputVerification.addStrategy('email',function(value){
+                return /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value) ? "" : "请输入正确的邮箱"
+            })
+            emailText.innerHTML = InputVerification.check('email',this.value);
+        }
+
+    </script>
+</body>
+</html>

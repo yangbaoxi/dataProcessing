@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用变量收编函数或者‘变量’</title>
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+    <h1>用变量收编函数或者‘变量’</h1>
+
+    <script>
+        // 我们之前写的函数 ：
+        function checkName (){
+            console.log('验证姓名的函数');
+        }    
+        function checkEmail(){
+            console.log('验证邮箱的函数');
+        }
+// =========================================================
+        // 第一种方法：（可用度 ：2个星）
+        var CheckObject = {
+            checkName(){
+                console.log('第一种方法 验证姓名的函数');
+            },
+            checkEmail(){
+                console.log('第一种方法 验证邮箱的函数');
+            }
+        }
+        //执行函数： 
+        CheckObject.checkName();
+
+// =========================================================
+
+        // 第二种方法：（可用度 ：2个星）
+        var CheckObject2 = function(){
+            return {
+                checkName(){
+                    console.log('第二种方法 验证姓名的函数');
+                },
+                checkEmail(){
+                    console.log('第二种方法 验证邮箱的函数');
+                }
+            }
+        }
+        //执行函数： 
+        var a = CheckObject2();
+        a.checkEmail();
+
+// =========================================================
+
+        //  第三种方法：（可用度 ：4个星）
+        var CheckObject3 = function(){
+            this.checkName = function(){
+                console.log('第三种方法 验证姓名的函数');
+            }
+            this.checkEmail = function(){
+                console.log('第三种方法 验证邮箱的函数');
+            }
+        }
+        //执行函数：
+        var a2 = new  CheckObject3();
+        a2.checkName();
+
+// =========================================================
+
+        // 第四种方法：（可用度 ：4个星）
+        var CheckObject4 = function(){};
+        CheckObject4.prototype.checkName = function(){
+            console.log('第四种方法 验证姓名的函数');
+        }
+        CheckObject4.prototype.checkEmail = function(){
+            console.log('第四种方法 验证姓名的函数');
+        }
+        //执行函数：
+        var a3 = new  CheckObject4();
+        a3.checkName();
+    </script>
+</body>
+</html>
