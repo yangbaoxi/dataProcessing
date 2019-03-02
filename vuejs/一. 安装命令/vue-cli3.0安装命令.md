@@ -29,4 +29,7 @@
 * 初始化 Vue 项目
 
 
+* 单独运行独立vue文件
 
+    命令：npm install -g @vue/cli-service-global
+    运行：vue serve xxx.vue

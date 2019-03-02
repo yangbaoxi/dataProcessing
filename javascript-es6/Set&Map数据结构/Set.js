@@ -64,7 +64,7 @@ let s4 = new Set(arr4);
 
 s4.add({id: 1, age: '18'}).add({id:3, age: '22'});
 
-console.log(s4);// [ {id: 1, age: '18'}, {id: 2, age: '20'}, {id: 1, age: '18'}, {id:3, age: '22'}]
+console.log(s4);// [{id: 1, age: '18'}, {id: 2, age: '20'}, {id: 1, age: '18'}, {id:3, age: '22'}]
 
 // 数组对象不给于过滤去重！！！
 

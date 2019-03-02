@@ -63,3 +63,21 @@ keep-alive 接受三个参数：
      -->
 </template>
 
+
+<template>
+    <!--  -->
+    <keep-alive >    
+        <router-view :key="key"></router-view>   
+    </keep-alive>
+</template>
+
+<script>
+export default {
+    computed: {
+        key(){
+            return this.$route.fullPath
+        }
+    }
+}
+</script>
+
