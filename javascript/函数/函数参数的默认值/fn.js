@@ -52,3 +52,10 @@ C2({});// undefined undefined
 
 // 解释： C1函数的形参 x y 默认值 0 并且 {} 值为 {} 调用C1函数 在传或者不传参数 x y 默认都是 0
 // C2函数的形参 x y 默认 undefined {} 值为 {x: 0, y: 0} 当我传参时 就会把 {} 里面的参数替换掉
+
+// 函数的 length 属性
+
+(function(a, b, c){}).length // 3 => 形参无默认值 未函数的 length
+(function(a, b, c = 5){}).length // 2 => 'c' 有默认值,函数预期传入的参数个数
+(function(...args){}).length // 0 => rest 参数 不会记入 length 属性
+

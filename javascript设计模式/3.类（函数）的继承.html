@@ -29,7 +29,7 @@
     }
     // 4.原型链的继承
     Child.prototype = new Person(); // 将新建的 Person 类的对象 赋值 给 Child 的  prototype(对象);
-     // 5.将 child的原型链添加 constructor属性 或者说 修改this的指向
+    // 5.将 child的原型链添加 constructor属性 或者说 修改this的指向
     Child.prototype.constructor = Child; 
 
     // 6.在child的原型链添加方法
@@ -37,14 +37,12 @@
         console.log(`我的年龄是：${this.age}`);
     }
 
-
     // 7.创建一个 child的实例对象 
     var a = new Child('yangbao',18);  
     console.log(a.name);  // yangbao
     console.log(a.age);  // 18 
     a.getName();  
     a.getAge();
-
 
     // 8.检查 a 实例对象的 是否 具有 Person个Child类的方法以及属性.
     console.log(a instanceof Person); // true

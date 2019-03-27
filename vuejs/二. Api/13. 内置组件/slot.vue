@@ -83,3 +83,95 @@ export default {
 </template>
 
 *2019/1/9 新增 获取子组件内部 <slot></slot> 所有 Dom 元素 this.$slots (获取非具名插槽)*
+
+*2019/3/6 vue 2.6x 具名插槽更新*
+
+// 具名插槽
+
+<!-- 子组件 -->
+<template>
+    <div>
+        <slot name="header"></slot>
+        <slot name="body"></slot>
+        <slot name="footer"></slot>
+    </div>    
+</template>
+
+<!-- 父组件 -->
+<template>
+    <div>
+        <children-a>
+            <template v-slot:header>
+                新增语法 v-slot:slot[Name]
+            </template>
+            <template v-slot:body>
+                main 主体内容
+            </template>
+            <template v-slot:footer>
+                其他内容
+            </template>
+        </children-a>
+    </div>
+</template>
+
+// 具名插槽 end
+
+// 作用域插槽
+
+<!-- 子组件 -->
+<template>
+    <div>
+        <!-- 
+            1: v-bind:userInfo[name]="userInfo";
+            2: :userInfo[name]="userInfo";
+         -->
+        <slot v-bind:userInfo='userInfo'></slot>
+
+        <slot name="header" :other="other"></slot>
+    </div>
+</template>
+
+<script>
+export default {
+    data () {
+        return {
+            userInfo: {
+                name: "杨宝",
+                age: 18
+            },
+            other: {
+                main: "其他主题内容"
+            }
+        }
+    }
+}
+</script>
+
+<!-- 父组件 -->
+<template>
+    <children-a>
+        <!-- 
+            v-slot:default='scope[name]' default默认 => 匿名插槽
+            v-slot:header="header" => 具名插槽
+            v-slot:header="{ header }" => 解构插槽
+            v-slot:[dynamicSlotName] => 动态插槽名
+         -->
+        <template v-slot:default="userInfo">
+            {{ userInfo }}
+        </template>
+
+        <template v-slot:other="other"> 
+            {{ other }}
+        </template>
+
+        <template v-slot:other="{ other }"> 
+            {{ other }}
+        </template>
+
+        <!-- 
+            缩写：
+            v-slot:default="scope[name]" => #default="scope[name]"
+            v-slot:header="header" => #header="{ header }"
+         -->
+    </children-a>
+</template>
