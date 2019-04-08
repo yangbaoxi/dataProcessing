@@ -21,8 +21,8 @@ console.log(arr1);// [1, 2, 3, 4, 5, 6, 7, 8]
 
 // 获取数组最大值、最小值
 
-let max = Math.max(null, arr1);
+let max = Math.max.apply(null, arr1);
 console.log(max); // 4
 
-let min = Math.min(null, arr2);
+let min = Math.min.apply(null, arr2);
 console.log(min); // 5
