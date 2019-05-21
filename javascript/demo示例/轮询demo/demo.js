@@ -25,9 +25,10 @@ function getList() {
         console.log(data);
         return true;
     }).then(() => {
-        setTimeout(() => {
+        let timing = setTimeout(() => {
             this.getList();
-        }, 1000)
+            clearTimeout(timing);
+        }, 1000);
     })
 }   
 // mounted

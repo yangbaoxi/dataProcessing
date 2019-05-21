@@ -116,8 +116,12 @@ class Observer {
     // 删除
     removeInfo(type, fn){
         if (this.msgs[type] instanceof Array) {
-            for (let i = 0; i < this.msgs[type].length; i++){
-                this.msgs[type][i] === fn && this.msgs[type].splice(i, 1);
+            if (fn) {
+                for (let i = 0; i < this.msgs[type].length; i++){
+                    this.msgs[type][i] === fn && this.msgs[type].splice(i, 1);
+                }
+            } else {
+                this.msgs[type] = [];
             }
         }
     }

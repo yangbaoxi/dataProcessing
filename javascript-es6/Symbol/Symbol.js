@@ -49,5 +49,5 @@ console.log(object[name]); // Other
 
 // !注意 使用 Symbol值作为对象的 属性(key)时  不能使用点运算符
 
-
+// Symbol.for('')
 

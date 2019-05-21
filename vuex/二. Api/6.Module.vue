@@ -114,7 +114,7 @@
             // 第二种方法
             ...mapState('pm',{
                 title: state => state.title
-            })
+            }),
             // ======================
             ...mapGetters({
                 titleGet: 'pm/titleGet'
