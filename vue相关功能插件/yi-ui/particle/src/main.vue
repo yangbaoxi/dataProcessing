@@ -66,7 +66,7 @@ export default {
     methods: {
         // 粒子初始化函数
         particleInit(){
-            let particle = document.getElementById('particle');
+            let particle = document.getElementById(this.canvasId);
             this.ctx = particle.getContext('2d');
             // 画布定位
             if (this.position == 'parent'){
