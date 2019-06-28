@@ -1,0 +1,3 @@
+people = input('你喜欢谁?')
+
+print(people)
