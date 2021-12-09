@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery.min.js"></script>
+    <style>
+        .code{
+            background: red;
+            color: #ccc6c0;
+            border:none;
+            padding:3px 6px;
+            cursor: pointer;
+        }
+        .code[disabled="disabled"]{
+            background: #ccc6c0;
+            color: #999999;
+        }
+    </style>
+</head>
+<body>
+<input type="tel" id="phone">
+<input type="button" class="code" value="获取验证码" onclick="getCode(this)" data-time="60"><br/>
+<input type="tel" id="phone2">
+<input type="button" class="code" value="获取验证码" onclick="getCode(this)" data-time="60">
+<script>
+    function getCode(obj) {
+        var sMobile = $('#phone').val();
+        if (!(/^1[34578]\d{9}$/.test(sMobile)) || sMobile == "") {
+            alert('手机号码不正确或者手机号为空')
+        } else {
+            settime(obj);
+        }
+    }
+    function settime(obj) {
+        var countdown=$(obj).attr('data-time');
+        if (countdown == 0) {
+            obj.value = "免费获取验证码";
+            $(obj).removeAttr('disabled');
+            $(obj).attr('data-time','60');
+            return countdown = 60;
+        } else {
+            obj.value = countdown + "秒后重新发送";
+            $(obj).attr('disabled', 'disabled');
+            countdown--;
+            $(obj).attr('data-time',countdown);
+        }
+        setTimeout(function () {
+            settime(obj)
+        }, 1000)
+    }
+</script>
+</body>
+</html>

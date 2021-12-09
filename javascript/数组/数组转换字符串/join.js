@@ -16,6 +16,6 @@ let c = a.join('.');
 
 console.log(b);     // 90,后,加,油
 
-console.log(c);     // 90.后.加.油 
+console.log(c);     // 90.后.加.油
 
 console.log(typeof b);  // String 

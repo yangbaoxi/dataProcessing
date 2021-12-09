@@ -20,3 +20,5 @@ console.log(num.toPrecision(2));// 3.1
 console.log(num.toPrecision(3));// 3.14
 console.log(num.toPrecision(4));// 3.142
 console.log(num.toPrecision(5));// 3.1416
+
+// number.toFixed(x) 保留小数点后几位

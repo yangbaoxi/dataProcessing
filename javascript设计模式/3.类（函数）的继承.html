@@ -30,7 +30,7 @@
     // 4.原型链的继承
     Child.prototype = new Person(); // 将新建的 Person 类的对象 赋值 给 Child 的  prototype(对象);
     // 5.将 child的原型链添加 constructor属性 或者说 修改this的指向
-    Child.prototype.constructor = Child; 
+    Child.prototype.constructor = Child;
 
     // 6.在child的原型链添加方法
     Child.prototype.getAge = function(){

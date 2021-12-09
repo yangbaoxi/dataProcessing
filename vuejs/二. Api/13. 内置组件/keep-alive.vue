@@ -65,7 +65,7 @@ keep-alive 接受三个参数：
 
 
 <template>
-    <!--  -->
+    <!-- 路由缓存 -->
     <keep-alive >    
         <router-view :key="key"></router-view>   
     </keep-alive>

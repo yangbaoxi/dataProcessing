@@ -62,14 +62,14 @@ export default {
     .fade-enter-active {    /* 进入动画 整个过程 */ 
        transition: all .5s; 
     }
-    .fade-enter {    /*进入时 触发的动画*/
+    .fade-enter {    /* 进入时 触发的动画 */
         opacity: 0;
         transform: translateX(10px); 
     }
-    .fade-leave-active{   /*整个离开动画 整个过程*/
+    .fade-leave-active {   /*整个离开动画 整个过程*/
         transition: all .5s;
     }
-    .fade-leave-to{    /*离开时 触发的动画*/
+    .fade-leave-to {    /*离开时 触发的动画*/
         opacity: 0;
         transform: translateX(10px);
     }

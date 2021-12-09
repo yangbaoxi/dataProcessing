@@ -1,4 +1,4 @@
-// Generator 语法
+// Generator语法
 
 // 特性：，Generator 函数是一个普通函数，但是有两个特征。
     // 一是，function关键字与函数名之间有一个星号；
@@ -98,6 +98,8 @@ for (let i of demo()) {
     console.log(i); // 1, 2, 3, 4, 5
 }
 
-// 上面代码使用for...of循环，依次显示 5 个yield表达式的值。这里需要注意，一旦next方法的返回对象的done属性为true，for...of循环就会中止，且不包含该返回对象，所以上面代码的return语句返回的6，不包括在for...of循环之中。
+// 上面代码使用for...of循环，依次显示 5 个yield表达式的值。
+// 这里需要注意，一旦next方法的返回对象的done属性为true，for...of循环就会中止
+// 且不包含该返回对象，所以上面代码的return语句返回的6，不包括在for...of循环之中。
 
 

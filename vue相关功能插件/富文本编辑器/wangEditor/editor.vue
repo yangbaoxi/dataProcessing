@@ -18,7 +18,7 @@ export default {
     methods: {
         editorInit(){ // 初始化富文本编辑器
             this.editor = new E(this.$refs.editor);
-            this.editor.customConfig.onchange = (html) => { // 监听变化，同步更新
+            this.editor.config.change = (html) => { // 监听变化，同步更新
                 this.content = html;
             }
             this.editor.create();
@@ -44,7 +44,7 @@ export default {
             return text;
         },
         editorMenus(menus){ // 菜单配置
-            this.editor.customConfig.menus = menus;
+            this.editor.config.menus = menus;
             // [
             //     'head',  // 标题
             //     'bold',  // 粗体
@@ -69,10 +69,10 @@ export default {
             // ]
         },
         editorZIndex(number){ // 配置编辑区域的 z-index 默认 10000
-            this.editor.customConfig.zIndex = number;
+            this.editor.config.zIndex = number;
         },
         editorLang(lang){ // 语种配置
-            this.editor.customConfig.lang = lang;
+            this.editor.config.lang = lang;
             // {
             //     '设置标题': 'title',
             //     '正文': 'p',
@@ -85,19 +85,19 @@ export default {
         },
         editorPaste(){ // 编辑器粘贴 
             // 注意，以下配置暂时对 IE 无效。IE 暂时使用系统自带的粘贴功能，没有样式过滤！
-            this.editor.customConfig.pasteFilterStyle = false; // 关闭粘贴样式的过滤
-            this.editor.customConfig.pasteIgnoreImg = true; // 忽略粘贴内容中的图片
-            this.editor.customConfig.pasteTextHandle = (content) => { // 自定义处理粘贴的文本内容
+            this.editor.config.pasteFilterStyle = false; // 关闭粘贴样式的过滤
+            this.editor.config.pasteIgnoreImg = true; // 忽略粘贴内容中的图片
+            this.editor.config.pasteTextHandle = (content) => { // 自定义处理粘贴的文本内容
                 return content;
             }
         },
         editorImgs(){ // 插入网络图片的回调
-            this.editor.customConfig.linkImgCallback = (url) => {
+            this.editor.config.linkImgCallback = (url) => {
                 console.log(url);
             }
         },
         editorLink(){ // 插入链接的校验
-            this.editor.customConfig.linkCheck = (text, link) => {
+            this.editor.config.linkCheck = (text, link) => {
                 console.log(text) // 插入的文字
                 console.log(link) // 插入的链接
                 return true // 返回 true 表示校验成功
@@ -105,25 +105,25 @@ export default {
             }
         },
         editorImgsCheck(){ // 插入网络图片的校验
-            this.editor.customConfig.linkImgCheck = (src) => {
+            this.editor.config.linkImgCheck = (src) => {
                 console.log(src);
                 return true // 返回 true 表示校验成功
                 // return '验证失败' // 返回字符串，即校验失败的提示信息
             }
         },
         editorOnfocus(){ // onfocus 函数
-            this.editor.customConfig.onfocus = function () {
+            this.editor.config.onfocus = function () {
                 console.log("onfocus")
             }
         },
         editorOnblur(){ // onblur 函数
-            this.editor.customConfig.onblur = function (html) {
+            this.editor.config.onblur = function (html) {
                 // html 即编辑器中的内容
                 console.log('onblur', html)
             }
         },
         editorColors(colors){ // 配置字体颜色、背景色
-            this.editor.customConfig.colors = colors;
+            this.editor.config.colors = colors;
             // [
             //     '#000000',
             //     '#eeece0',
@@ -138,7 +138,7 @@ export default {
             // ]
         },
         editorFontNames(fontNames){ // 配置字体
-            this.editor.customConfig.fontNames = fontNames;
+            this.editor.config.fontNames = fontNames;
             // [
             //     '宋体',
             //     '微软雅黑',
@@ -147,6 +147,9 @@ export default {
             //     'Verdana'
             // ]
         }
+    },
+    mounted() {
+        this.editorInit();
     }
 }
 </script>

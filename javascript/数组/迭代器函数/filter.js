@@ -21,11 +21,11 @@
 let d = new Array(20,25,35,50,101);
 
 let filterd = d.filter((ele, index, array) => {
-console.log('当前元素',ele);
-console.log('当前元素下标',index);
-console.log('元素所属数组',array);
+    console.log('当前元素',ele);
+    console.log('当前元素下标',index);
+    console.log('元素所属数组',array);
 
-return ele > 30
+    return ele > 30
 })
 
 console.log(d);         // [35, 50, 101];

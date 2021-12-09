@@ -8,7 +8,7 @@ function promise_api () {
     index++;
     return new Promise((resolve, reject) => {
         // 前后端调接口 消耗的时间  
-        let time = Math.random() * 3000;
+        let time = Math.random() * 10000;
         console.log('消耗的时间',time);
         setTimeout(() => {
             let data = {
@@ -18,7 +18,7 @@ function promise_api () {
         }, time);
     })
 }
-
+// PartyDevelopment/views/PartyDevelopmentView/PartyDevelopmentView
 // 请求接口函数
 function getList() {
     promise_api().then((data) => {

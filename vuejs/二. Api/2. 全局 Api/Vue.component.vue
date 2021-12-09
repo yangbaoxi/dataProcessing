@@ -129,3 +129,15 @@ cli ==> main.js
     Vue.use(ComponentA);
     Vue.use(ComponentB);
 </script>
+
+
+<script>
+getReDictInfo() { // 获取车站字典表
+    this.$api.getReDictInfo(this.queryBody).then((res) => {
+        this.$Fn.CodeError(res.code, res.msg).then(() => {
+            let data = res.data.dict.list || [];
+            this.stationData = [...this.stationData, ...data];
+        })
+    })
+}
+</script>

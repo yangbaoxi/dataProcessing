@@ -3,6 +3,7 @@
 // 语法
 
 // Object.freeze(object)
+// Object.freeze(object, '属性')
 
 // 参数说明
 

@@ -45,5 +45,5 @@ window.onmousemove = function(e){
 div.onmouseup = function(){
     //开关关闭
     isDown = false;
-    dv.style.cursor = 'default';
+    div.style.cursor = 'default';
 }

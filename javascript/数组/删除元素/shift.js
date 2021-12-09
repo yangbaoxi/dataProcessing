@@ -10,10 +10,10 @@
 // 示例
 
 let a = [
-{ name: '没有梦想' },
-{ name: '何必留下' }
+    { name: '没有梦想' },
+    { name: '何必留下' }
 ]
 
 let b = a.shift();
 
-console.log(b);     // { name: "没有梦想" }
+console.log(b); // { name: "没有梦想" }

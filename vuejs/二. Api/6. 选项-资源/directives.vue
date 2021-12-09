@@ -13,7 +13,6 @@
             // 定义一个 v-changeColor {{ name }}
             changeColor: {
                 // 指令内部钩子函数
-
                 // 指令第一次绑定到元素时调用触发  (相似于 => vue实例 created)
                 bind(el, binding, vnode){
                     console.log('bind');

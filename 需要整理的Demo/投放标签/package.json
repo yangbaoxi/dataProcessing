@@ -1,0 +1,33 @@
+{
+  "name": "dnd.js",
+  "version": "0.4.10",
+  "description": "drag and drop",
+  "main": "dist/dnd.js",
+  "scripts": {
+    "dev": "webpack --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qgh810/dnd.git"
+  },
+  "keywords": [
+    "drag",
+    "drop",
+    "drag and drop",
+    "dnd",
+    "js"
+  ],
+  "author": "qiuguohui",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qgh810/dnd/issues"
+  },
+  "homepage": "https://github.com/qgh810/dnd#readme",
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.0",
+    "babel-preset-es2015": "^6.24.0",
+    "webpack": "^2.2.1"
+  }
+}

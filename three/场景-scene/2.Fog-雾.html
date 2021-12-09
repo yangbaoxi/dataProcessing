@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雾</title>
+</head>
+<body>
+    <h1>雾 and 雾2</h1>
+    <script>
+        // 雾：Fog( color : Integer, near : Float, far : Float )
+            new THREE.Fog(new THREE.Color('#ffffff'), 1, 50) // color: Integer, near: Float, far: Float
+            // (1) 类中的参数定义了线性雾。也就是说，雾的密度是随着距离线性增大的。
+            // (2) 构造函数：
+                // 参数一：Color 实例对象（颜色可以是一个十六进制的整型数，或者是CSS风格的字符串）
+                // 参数二：雾的起始点
+                // 参数三 全雾的终止点
+            // (3) 属性 name 对象的名称，可选、不必唯一。默认值是一个空字符串。
+            // (4) 方法一：fog.clone() 克隆 返回一个具有和当前雾参数相同的新的Fog实例。
+            // (5) 方法二：fog.toJSON() 以JSON格式返回Fog的数据。
+            // (6) 改变构造函数的入参  使用 set[value]形式：  scene.fog.color.set(value);☆
+        // 雾2：FogExp2( color : Integer, density : Float )
+            new THREE.FogExp2(new THREE.Color('#ffffff'), 0.01);
+            // (1) 类所包含的参数定义了指数雾，它可以在相机附近提供清晰的视野，且距离相机越远，雾的浓度随着指数增长越快。
+            // (2) 构造函数：
+                // 参数一：Color 实例对象（颜色可以是一个十六进制的整型数，或者是CSS风格的字符串）
+                // 参数二：定义雾的密度将会增长多块 默认值 0.00025
+            // (3) 属性 name 对象名称，可选、不必唯一。默认值是一个空字符串。
+            // (4) 方法一：fog.clone() 克隆 返回一个具有和当前雾参数相同的新的Fog实例。
+            // (5) 方法二：fog.toJSON() 以JSON格式返回Fog的数据。
+            // (6) 改变构造函数的入参  使用 set[value]形式：  scene.fog.color.set(value);☆
+    </script>
+</body>
+</html>

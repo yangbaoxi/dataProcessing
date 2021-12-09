@@ -42,7 +42,7 @@
             object: {
                 handler(val){
                     console.log('深度监听',val)
-                },deep: true
+                }, deep: true
             }
         }
     }

@@ -15,4 +15,4 @@ let a = [
 
 let b = a.pop();
 
-console.log(b);     // { name: "何必留下" }
+console.log(b); // { name: '何必留下' }

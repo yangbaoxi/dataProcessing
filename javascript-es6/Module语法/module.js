@@ -42,3 +42,7 @@ import _ from "./module.js";
 // 默认+其他
 
 import _, { A } from "./module.js";
+
+// 集中引入
+
+import { default as A } from "./module.js";

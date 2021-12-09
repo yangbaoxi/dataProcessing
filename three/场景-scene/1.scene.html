@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>场景对象</title>
+</head>
+<body>
+    <h1>场景对象-属性及方法</h1>
+</body>
+<script>
+    const scene = new THREE.Scene(); // 创建场景
+    // Scene() 场景对象
+    // 属性：
+    // 1: fog 一个fog实例定义了影响场景中的每个物体的雾的类型，默认值 null
+        // ------------- 链接： ./Fog-雾.html
+    // 2: overrideMaterial 如果不为空，它将强制场景中的每个物体使用这里的材质来渲染。默认值为null。
+    // 3. autoUpdate 默认值为true，若设置了这个值，则渲染器会检查每一帧是否需要更新场景及其中物体的矩阵。 当设为false时，你必须亲自手动维护场景中的矩阵。
+    // 4. background 若不为空，在渲染场景的时候将设置背景，且背景总是首先被渲染的。
+        // 默认值 null
+        // (1) 可以设置 new THREE.Color('#ff0000') 对象
+        scene.background = new THREE.Color('#00ff00'); // 返回color对象 详情可以查看
+        // (2) 一个覆盖canvas的Texture（纹理）
+        // (3) 或是一个CubeTexture
+    // 方法：
+    // 5. toJSON() meta -- 包含有元数据的对象，例如场景中的的纹理或图片。( 将scene对象转换为 three.js JSON Object/Scene format（three.js JSON 物体/场景格式）。)
+    // 6. dispose() 清除WebGLRenderer内部所缓存的场景相关的数据
+</script>
+</html>
